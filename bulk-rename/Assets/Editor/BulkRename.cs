@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System.Linq;
 
@@ -39,14 +39,14 @@ public class BulkRename : ScriptableWizard
 
         Object[] theArray = new Object[getLargestIndex(Selection.objects) + 1];
 
-        foreach (Object O in Selection.objects)
+        foreach (Object selectedObject in Selection.objects)
         {
-            theArray[((GameObject) O).transform.GetSiblingIndex()] = O;
+            theArray[((GameObject) selectedObject).transform.GetSiblingIndex()] = selectedObject;
         }
 
         theArray = theArray.Where(c => c != null).ToArray();
 
-        foreach (Object O in theArray)
+        foreach (Object selectedObject in theArray)
         {
             PostFixString = PostFix.ToString();
 
@@ -62,11 +62,11 @@ public class BulkRename : ScriptableWizard
 
             if (Delimiter != "")
             {
-                O.name = NewName + Delimiter + PostFixString;
+                selectedObject.name = NewName + Delimiter + PostFixString;
             }
             else
             {
-                O.name = NewName + PostFixString;
+                selectedObject.name = NewName + PostFixString;
             }
 
             PostFix += Increment;
@@ -77,11 +77,11 @@ public class BulkRename : ScriptableWizard
     {
         int theIndex = 0;
 
-        foreach (Object O in selection)
+        foreach (Object selectedObject in selection)
         {
-            if (theIndex < ((GameObject) O).transform.GetSiblingIndex())
+            if (theIndex < ((GameObject) selectedObject).transform.GetSiblingIndex())
             {
-                theIndex = ((GameObject) O).transform.GetSiblingIndex();
+                theIndex = ((GameObject) selectedObject).transform.GetSiblingIndex();
             }
         }
         return theIndex;
